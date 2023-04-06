@@ -1,15 +1,12 @@
 import { galleryItems } from "./gallery-items.js";
 
-const galleryElement = document.querySelector(".gallery");
+const gallery = document.querySelector(".gallery");
 createGallery(galleryItems);
-console.dir(galleryElement);
-const galleryItemLink = galleryElement.querySelector(".gallery__link");
-const galleryItemImg = galleryElement.querySelector(".gallery__image");
 
-galleryElement.addEventListener("click", showBigImage);
+gallery.addEventListener("click", showModal);
 
 function createGallery(galleryData) {
-  galleryElement.innerHTML = galleryData
+  gallery.innerHTML = galleryData
     .map(
       (galleryItem) => `
     <li class="gallery__item">
@@ -26,19 +23,16 @@ function createGallery(galleryData) {
     .join("");
 }
 
-function getBigImageUrl(event) {
-  console.log(event.target.dataset.source);
-  return event.target.dataset.source;
-}
-
-function showBigImage(event) {
+function showModal(event) {
   if (!event.target.classList.contains("gallery__image")) {
     return;
   }
+
   event.preventDefault();
-  const instance = basicLightbox.create(`
-      <img src="${getBigImageUrl(event)}" width="800" height="600">
+
+  const bigImageModalWindow = basicLightbox.create(`
+      <img src="${event.target.dataset.source}" width="800" height="600">
   `);
 
-  instance.show();
+  bigImageModalWindow.show();
 }
