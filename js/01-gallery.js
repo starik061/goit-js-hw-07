@@ -35,4 +35,14 @@ function showModal(event) {
   `);
 
   bigImageModalWindow.show();
+
+  window.addEventListener("keydown", closeModal);
+
+  function closeModal(event) {
+    console.log(event);
+    if (event.code === "Escape") {
+      bigImageModalWindow.close();
+      window.removeEventListener("keydown", closeModal);
+    }
+  }
 }
