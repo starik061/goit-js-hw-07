@@ -3,6 +3,8 @@ import { galleryItems } from "./gallery-items.js";
 const gallery = document.querySelector(".gallery");
 createGallery(galleryItems);
 
+let bigImageModalWindow;
+
 gallery.addEventListener("click", showModal);
 
 function createGallery(galleryData) {
@@ -30,19 +32,19 @@ function showModal(event) {
 
   event.preventDefault();
 
-  const bigImageModalWindow = basicLightbox.create(`
+  bigImageModalWindow = basicLightbox.create(`
       <img src="${event.target.dataset.source}" width="800" height="600">
   `);
 
   bigImageModalWindow.show();
 
   window.addEventListener("keydown", closeModal);
+}
 
-  function closeModal(event) {
-    console.log(event);
-    if (event.code === "Escape") {
-      bigImageModalWindow.close();
-      window.removeEventListener("keydown", closeModal);
-    }
+function closeModal(event) {
+  console.log(event);
+  if (event.code === "Escape") {
+    bigImageModalWindow.close();
+    window.removeEventListener("keydown", closeModal);
   }
 }
